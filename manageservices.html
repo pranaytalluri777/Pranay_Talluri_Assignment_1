@@ -1,0 +1,39 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Services</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="aboutUs.html">About Us</a></li>
+      <li><a href="manageservices.html">Manage Services</a></li>
+      <li><a href="analytics.html">Analytics</a></li>
+    </ul>
+  </nav>
+  <main>
+    <h1>Manage Services</h1>
+    <form id="serviceForm" class="service-form" autocomplete="off">
+      <input type="text" id="serviceName" placeholder="Service Name">
+      <textarea id="serviceDesc" placeholder="Service Description"></textarea>
+      <div class="form-buttons">
+        <button type="button" onclick="createService()">Create</button>
+        <button type="button" onclick="readService()">Read</button>
+        <button type="button" onclick="updateService()">Update</button>
+        <button type="button" onclick="deleteService()">Delete</button>
+      </div>
+    </form>
+    <div id="serviceOutput"></div>
+  </main>
+  <footer>© 2025 Elevate Digital Marketing Agency</footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
