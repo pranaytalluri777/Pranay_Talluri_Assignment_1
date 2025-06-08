@@ -1,91 +1,113 @@
 
+
+const services = [];
+
+function renderTable() {
+  const tbody = document.querySelector('#serviceTable tbody');
+  tbody.innerHTML = '';
+  services.forEach((svc, index) => {
+    const row = document.createElement('tr');
+    row.innerHTML = `
+      <td>${svc.name}</td>
+      <td>${svc.desc}</td>
+      <td>
+        <button onclick="startEdit(${index})">Edit</button>
+        <button onclick="removeService(${index})">Delete</button>
+      </td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
 function createService() {
-  const name = document.getElementById('serviceName');
-  const desc = document.getElementById('serviceDesc');
-  const output = document.getElementById('serviceOutput');
-  if (name && desc && output) {
-    const n = name.value.trim();
-    const d = desc.value.trim();
-    if (!n) {
-      output.innerHTML = "<p>Please enter a service name to create.</p>";
-      return;
-    }
-    output.innerHTML = `<p>Creating service: <strong>${n}</strong><br>Description: ${d || "No description provided."}</p>`;
+  const nameField = document.getElementById('serviceName');
+  const descField = document.getElementById('serviceDesc');
+  const name = nameField.value.trim();
+  const desc = descField.value.trim();
+  if (!name) {
+    alert('Please enter a service name.');
+    return;
   }
+  services.push({ name, desc });
+  renderTable();
+  document.getElementById('serviceForm').reset();
 }
 
-function readService() {
-  const name = document.getElementById('serviceName');
-  const output = document.getElementById('serviceOutput');
-  if (name && output) {
-    const n = name.value.trim();
-    if (!n) {
-      output.innerHTML = "<p>Please enter a service name to read.</p>";
-      return;
-    }
-    output.innerHTML = `<p>Displaying service: <strong>${n}</strong> (mock data)</p>`;
-  }
+function startEdit(index) {
+  const svc = services[index];
+  document.getElementById('serviceName').value = svc.name;
+  document.getElementById('serviceDesc').value = svc.desc;
+  const btn = document.querySelector('button[onclick="createService()"]');
+  btn.textContent = 'Update';
+  btn.onclick = () => confirmUpdate(index);
 }
 
-function updateService() {
-  const name = document.getElementById('serviceName');
-  const desc = document.getElementById('serviceDesc');
-  const output = document.getElementById('serviceOutput');
-  if (name && desc && output) {
-    const n = name.value.trim();
-    const d = desc.value.trim();
-    if (!n) {
-      output.innerHTML = "<p>Please enter a service name to update.</p>";
-      return;
-    }
-    output.innerHTML = `<p>Updating service: <strong>${n}</strong><br>New Description: ${d || "No description provided."}</p>`;
+function confirmUpdate(index) {
+  const nameField = document.getElementById('serviceName');
+  const descField = document.getElementById('serviceDesc');
+  const name = nameField.value.trim();
+  const desc = descField.value.trim();
+  if (!name) {
+    alert('Please enter a service name.');
+    return;
   }
+  services[index] = { name, desc };
+  renderTable();
+  document.getElementById('serviceForm').reset();
+  const btn = document.querySelector('button');
+  btn.textContent = 'Create';
+  btn.onclick = createService;
 }
 
-function deleteService() {
-  const name = document.getElementById('serviceName');
-  const output = document.getElementById('serviceOutput');
-  if (name && output) {
-    const n = name.value.trim();
-    if (!n) {
-      output.innerHTML = "<p>Please enter a service name to delete.</p>";
-      return;
-    }
-    output.innerHTML = `<p>Deleting service: <strong>${n}</strong></p>`;
-  }
+function removeService(index) {
+  services.splice(index, 1);
+  renderTable();
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
+  // Only render table if on Manage Services page
+  const table = document.getElementById('serviceTable');
+  if (table) {
+    renderTable();
+  }
+  // Initialize Chart.js specifically for analytics page
   const chartCanvas = document.getElementById('campaignChart');
   if (chartCanvas && typeof Chart !== 'undefined') {
     const ctx = chartCanvas.getContext('2d');
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Email', 'SEO', 'PPC', 'Social'],
+        labels: ['Email', 'SEO', 'PPC', 'Social Media'],
         datasets: [{
           label: 'Leads Generated',
-          data: [120, 200, 150, 180],
+          data: [150, 120, 95, 200],
           backgroundColor: [
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(255, 206, 86, 0.2)',
-            'rgba(255, 99, 132, 0.2)'
+            'rgba(54, 162, 235, 0.6)',
+            'rgba(75, 192, 192, 0.6)',
+            'rgba(255, 206, 86, 0.6)',
+            'rgba(153, 102, 255, 0.6)'
           ],
           borderColor: [
-            'rgba(75, 192, 192, 1)',
             'rgba(54, 162, 235, 1)',
+            'rgba(75, 192, 192, 1)',
             'rgba(255, 206, 86, 1)',
-            'rgba(255, 99, 132, 1)'
+            'rgba(153, 102, 255, 1)'
           ],
           borderWidth: 1
         }]
       },
       options: {
         responsive: true,
+        plugins: {
+          legend: { position: 'top' }
+        },
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            title: { display: true, text: 'Leads Generated' }
+          },
+          x: {
+            title: { display: true, text: 'Channel' }
           }
         }
       }

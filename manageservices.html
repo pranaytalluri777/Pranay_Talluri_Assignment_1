@@ -26,12 +26,20 @@
       <textarea id="serviceDesc" placeholder="Service Description"></textarea>
       <div class="form-buttons">
         <button type="button" onclick="createService()">Create</button>
-        <button type="button" onclick="readService()">Read</button>
-        <button type="button" onclick="updateService()">Update</button>
-        <button type="button" onclick="deleteService()">Delete</button>
       </div>
     </form>
-    <div id="serviceOutput"></div>
+    <table id="serviceTable" class="service-table">
+      <thead>
+        <tr>
+          <th>Service Name</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- dynamically generated rows -->
+      </tbody>
+    </table>
   </main>
   <footer>© 2025 Elevate Digital Marketing Agency</footer>
   <script src="js/main.js"></script>

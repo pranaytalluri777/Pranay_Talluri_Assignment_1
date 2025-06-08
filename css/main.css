@@ -220,3 +220,65 @@ footer {
 }
 
 
+
+
+.service-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5em;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(24,49,83,0.06);
+}
+.service-table th,
+.service-table td {
+  border: 1px solid #c0cbe2;
+  padding: 0.8em 1em;
+  text-align: left;
+}
+.service-table th {
+  background: #183153;
+  color: #fff;
+  font-weight: 600;
+}
+.service-table button {
+  background: #ffb347;
+  border: none;
+  border-radius: 4px;
+  padding: 0.4em 0.8em;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-family: 'Poppins', Arial, sans-serif;
+  transition: background 0.2s;
+}
+.service-table button:hover {
+  background: #ffd97b;
+}
+
+.analytics-static {
+  background: #fff;
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(24,49,83,0.06);
+  max-width: 900px;
+  margin: 2em auto;
+}
+.analytics-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+}
+.analytics-table th,
+.analytics-table td {
+  border: 1px solid #c0cbe2;
+  padding: 0.75em 1em;
+  text-align: center;
+}
+.analytics-table th {
+  background: #183153;
+  color: #fff;
+  font-weight: 600;
+}
+.analytics-table tr:nth-child(even) {
+  background: #f2f6fb;
+}
